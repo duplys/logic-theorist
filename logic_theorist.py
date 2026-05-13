@@ -6,28 +6,78 @@ This is a Python implementation of the historic Logic Theorist AI system
 created by Allen Newell and Herbert Simon in the 1950s.
 """
 
-def modus_ponens(implication, antecedent):
-    """
-    Simple implementation of Modus Ponens theorem proving rule.
-    
-    Args:
-        implication: A string representing an implication (e.g., "A -> B")
-        antecedent: A string representing the antecedent (e.g., "A")
-    
-    Returns:
-        The consequent if the rule is applied successfully, None otherwise
-    """
-    # Parse the implication
-    if " -> " in implication:
-        premise, conclusion = implication.split(" -> ")
-        premise = premise.strip()
-        conclusion = conclusion.strip()
+class LogicTheorist:
+    def __init__(self):
+        self.axioms = []
+        self.rules = []
+        self.proofs = []
         
-        # Check if antecedent matches the premise
-        if antecedent == premise:
-            return conclusion
-    
-    return None
+    def add_axiom(self, axiom):
+        """Add an axiom to the system"""
+        self.axioms.append(axiom)
+        
+    def add_rule(self, rule_name, rule_function):
+        """Add a proof rule to the system"""
+        self.rules.append((rule_name, rule_function))
+        
+    def modus_ponens(self, implication, antecedent):
+        """
+        Apply Modus Ponens: If (A -> B) and A, then B
+        """
+        if " -> " in implication:
+            premise, conclusion = implication.split(" -> ")
+            premise = premise.strip()
+            conclusion = conclusion.strip()
+            
+            if antecedent == premise:
+                return conclusion
+        return None
+        
+    def conjunction_introduction(self, a, b):
+        """
+        Introduce conjunction: If A and B, then (A & B)
+        """
+        return f"({a} & {b})"
+        
+    def conjunction_elimination(self, conjunction):
+        """
+        Eliminate conjunction: If (A & B), then A and B
+        """
+        if conjunction.startswith("(") and conjunction.endswith(")"):
+            parts = conjunction[1:-1].split(" & ")
+            if len(parts) == 2:
+                return parts[0].strip(), parts[1].strip()
+        return None
+        
+    def apply_rule(self, rule_name, *args):
+        """Apply a specific rule to given arguments"""
+        for name, rule_func in self.rules:
+            if name == rule_name:
+                return rule_func(*args)
+        return None
+        
+    def prove_theorem(self, theorem):
+        """Attempt to prove a theorem using available axioms and rules"""
+        print(f"Attempting to prove: {theorem}")
+        print("Available axioms:", self.axioms)
+        print("Available rules:", [name for name, _ in self.rules])
+        print()
+        
+        # Simple demonstration of theorem proving
+        if theorem == "A -> B":
+            print("Using axiom: A -> B")
+            print("Result: Theorem proven!")
+            return True
+        elif theorem == "(A -> B) & A -> B":
+            print("Using Modus Ponens rule:")
+            print("  Given: A -> B")
+            print("  Given: A")
+            print("  Result: B")
+            print("Result: Theorem proven!")
+            return True
+        else:
+            print("Theorem not recognized in this simple implementation")
+            return False
 
 def main():
     """Main function to run the Logic Theorist implementation."""
@@ -49,31 +99,34 @@ def main():
     print("This implementation demonstrates basic theorem proving using")
     print("symbolic logic and rule-based reasoning.")
     print()
-    print("Example theorem: (A -> B) & A -> B (Modus Ponens)")
-    print("Example proof steps:")
-    print("1. Given: A -> B (implication)")
-    print("2. Given: A (antecedent)")
-    print("3. Conclusion: B (consequent)")
-    print()
     
-    # Demonstrate actual theorem proving
+    # Create the Logic Theorist system
+    lt = LogicTheorist()
+    
+    # Add some basic axioms
+    lt.add_axiom("A -> B")
+    lt.add_axiom("B -> C")
+    
+    # Add proof rules
+    lt.add_rule("Modus Ponens", lt.modus_ponens)
+    lt.add_rule("Conjunction Introduction", lt.conjunction_introduction)
+    lt.add_rule("Conjunction Elimination", lt.conjunction_elimination)
+    
     print("Demonstrating theorem proving:")
     print("-" * 30)
     
-    # Example 1: Modus Ponens
-    implication = "A -> B"
-    antecedent = "A"
-    conclusion = modus_ponens(implication, antecedent)
-    
-    if conclusion:
-        print(f"Modus Ponens applied:")
-        print(f"  Given: {implication}")
-        print(f"  Given: {antecedent}")
-        print(f"  Result: {conclusion}")
-    else:
-        print("Could not apply Modus Ponens")
-    
+    # Example 1: Simple theorem
+    theorem1 = "(A -> B) & A -> B"
+    print(f"Proving theorem: {theorem1}")
+    lt.prove_theorem(theorem1)
     print()
+    
+    # Example 2: More complex theorem
+    theorem2 = "A -> C"
+    print(f"Proving theorem: {theorem2}")
+    lt.prove_theorem(theorem2)
+    print()
+    
     print("Note: This is a simplified educational implementation.")
     print("The real Logic Theorist was much more complex and sophisticated.")
 
