@@ -6,6 +6,29 @@ This is a Python implementation of the historic Logic Theorist AI system
 created by Allen Newell and Herbert Simon in the 1950s.
 """
 
+def modus_ponens(implication, antecedent):
+    """
+    Simple implementation of Modus Ponens theorem proving rule.
+    
+    Args:
+        implication: A string representing an implication (e.g., "A -> B")
+        antecedent: A string representing the antecedent (e.g., "A")
+    
+    Returns:
+        The consequent if the rule is applied successfully, None otherwise
+    """
+    # Parse the implication
+    if " -> " in implication:
+        premise, conclusion = implication.split(" -> ")
+        premise = premise.strip()
+        conclusion = conclusion.strip()
+        
+        # Check if antecedent matches the premise
+        if antecedent == premise:
+            return conclusion
+    
+    return None
+
 def main():
     """Main function to run the Logic Theorist implementation."""
     print("Welcome to The Logic Theorist!")
@@ -31,6 +54,25 @@ def main():
     print("1. Given: A -> B (implication)")
     print("2. Given: A (antecedent)")
     print("3. Conclusion: B (consequent)")
+    print()
+    
+    # Demonstrate actual theorem proving
+    print("Demonstrating theorem proving:")
+    print("-" * 30)
+    
+    # Example 1: Modus Ponens
+    implication = "A -> B"
+    antecedent = "A"
+    conclusion = modus_ponens(implication, antecedent)
+    
+    if conclusion:
+        print(f"Modus Ponens applied:")
+        print(f"  Given: {implication}")
+        print(f"  Given: {antecedent}")
+        print(f"  Result: {conclusion}")
+    else:
+        print("Could not apply Modus Ponens")
+    
     print()
     print("Note: This is a simplified educational implementation.")
     print("The real Logic Theorist was much more complex and sophisticated.")
