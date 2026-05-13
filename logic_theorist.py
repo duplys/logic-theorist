@@ -22,6 +22,18 @@ def main():
     print("- Demonstrated that computers could perform intelligent reasoning")
     print("- Laid the groundwork for modern AI research")
     print("- Showed that complex logical problems could be solved algorithmically")
+    print()
+    print("This implementation demonstrates basic theorem proving using")
+    print("symbolic logic and rule-based reasoning.")
+    print()
+    print("Example theorem: (A -> B) & A -> B (Modus Ponens)")
+    print("Example proof steps:")
+    print("1. Given: A -> B (implication)")
+    print("2. Given: A (antecedent)")
+    print("3. Conclusion: B (consequent)")
+    print()
+    print("Note: This is a simplified educational implementation.")
+    print("The real Logic Theorist was much more complex and sophisticated.")
 
 if __name__ == "__main__":
     main()
