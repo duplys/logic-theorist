@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logic-theorist"
+version = "0.1.0"
+description = "Python implementation of The Logic Theorist, the world's first AI system"
+authors = [
+    {name = "Paul Duplys", email = "paul.duplys@example.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    # Add any dependencies here if needed
+]
+
+[project.urls]
+Homepage = "https://github.com/paul-duplys/logic-theorist"
+Repository = "https://github.com/paul-duplys/logic-theorist"
+
+[project.scripts]
+logic-theorist = "python.logic_theorist:main"
