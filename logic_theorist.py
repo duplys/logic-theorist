@@ -8,7 +8,7 @@ created by Allen Newell and Herbert Simon in the 1950s.
 
 def main():
     """Main function to run the Logic Theorist implementation."""
-    print("Welcome to The Logic Theorist")
+    print("Welcome to The Logic Theorist!")
     print("This is a Python implementation of the historic AI system")
     print("that proved mathematical theorems in the 1950s.")
     print()
